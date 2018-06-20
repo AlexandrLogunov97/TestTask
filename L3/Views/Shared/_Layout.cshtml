@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title – приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/scripts/jquery-1.10.2.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Cars", "Index", "Cars", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Brands", "Index", "Brands")</li>
+                    <li>@Html.ActionLink("Makers", "Index", "Makers")</li>
+                </ul>
+            </div>
+            @helper CreateProfile()
+            {
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    string role="";
+                    if (HttpContext.Current.User.IsInRole("Moderator"))
+                    {
+                        role = "Moderator";
+                    }
+                    else
+                    {
+                        role = "Admin";
+                    }
+                    @Html.ActionLink($"{HttpContext.Current.User.Identity.Name} ({role})", "Login", "Account", new { area = "Admin" }, new { @class = "dropdown-toggle", @data_toggle = "dropdown", role = "button", @aria_haspopup = "true", @aria_expanded = "false" })
+                    <ul class="dropdown-menu">
+                    @if (HttpContext.Current.User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Users", "Users", "Manage", new { area = "Admin" },new { @class = "" })
+                    }
+                    @if (HttpContext.Current.User.IsInRole("Moderator"))
+                    {
+                    }
+                        <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "Admin" }, new { @class = "" })</li>
+                   </ul>
+                }
+                else
+                {
+                    @Html.ActionLink("Sign in", "Login", "Account", new { area = "Admin" }, new { })      
+                }     
+            }
+            <div class="navbar-header navbar-right">
+                <ul class="nav navbar-nav">
+                    <li>
+                        @CreateProfile()
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

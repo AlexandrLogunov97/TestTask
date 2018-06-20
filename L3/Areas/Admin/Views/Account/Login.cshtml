@@ -1,0 +1,28 @@
+﻿@model L3.Areas.Admin.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table style="width: 100%">
+    <tr>
+        <td style="width: 33%"></td>
+        <td style="width: 33%">
+            @using (Html.BeginForm())
+            {
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <h2>Please sign in</h2>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="text" name="Login"  id="inputEmail" class="form-control" placeholder="Login" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password"  name="Password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <br/>
+                <button class="btn btn-primary" type="submit">Sign in</button>
+            }
+        </td>
+        <td style="width: 33%"></td>
+    </tr>
+</table>

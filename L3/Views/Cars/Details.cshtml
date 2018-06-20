@@ -1,0 +1,71 @@
+﻿@model L3.Models.Car
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Car image</h4>
+    @if (Model.Image != null)
+    {
+        @Html.Raw("<img style='width:280px; height:240px;' class='img - thumbnail' src=\"data:image/jpeg;base64,"
+          + Convert.ToBase64String(Model.Image) + "\" />")
+    }
+    else
+    {
+        @Html.Raw($"<img style='width:280px; height:240px;' class='img - thumbnail' src='{Url.Content("/Images/none-foto.png")}' />")
+    }
+    <h4>Car information</h4>
+    <table class="table table-striped">
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Brand.Name)</td>
+            <td>@Html.DisplayFor(model => model.Brand.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Maker.Name)</td>
+            <td>@Html.DisplayFor(model => model.Maker.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Name)</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Price)</td>
+            <td>@Html.DisplayFor(model => model.Price)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Power)</td>
+            <td>@Html.DisplayFor(model => model.Power)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Equipment)</td>
+            <td>@Html.DisplayFor(model => model.Equipment)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Year)</td>
+            <td>@Html.DisplayFor(model => model.Year)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.EngineCapacity)</td>
+            <td>@Html.DisplayFor(model => model.EngineCapacity)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.About)</td>
+            <td>@Html.DisplayFor(model => model.About)</td>
+        </tr>
+    </table>
+</div>
+<p>
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) <label>|</label>
+        @Html.ActionLink(" Back to List", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
+</p>

@@ -1,0 +1,55 @@
+﻿@model L3.Areas.Admin.Models.EditModel
+
+@{
+    ViewBag.Title = "Edit user";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4>Edit user</h4>
+        <hr />
+        @Html.ValidationSummary(false)
+        
+        <input type="hidden" name="UserId" value="@Model.UserId"/>
+        <input type="hidden" name="oldRole" value="@Model.Role"/>
+        <div>
+            Login
+            <div>
+                <input name="UserName" type="text" value="@Model.UserName" class="form-control" />
+            </div>
+        </div>
+        <div>
+            New Password
+            <div>
+                <input name="Password" type="Password" class="form-control" placeholder="old password"/>
+            </div>
+        </div>
+        <div>
+            Роль
+            <div>
+                @if (Model.Role == "Moderator")
+                {
+                    <label>Moderator: <input type="radio" name="Role"  value="Moderator" checked required/></label>
+                    <br/>
+                    <label>Admin: <input type="radio" name="Role" value="Admin" required/></label>
+                }
+                @if (Model.Role == "Admin")
+                {
+                    <label>Moderator: <input type="radio" name="Role" value="Moderator" required /></label>
+                    <br />
+                    <label>Admin: <input type="radio" name="Role" value="Admin" checked required /></label>
+                }
+            </div>
+        </div>
+        <div>
+            <div>
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

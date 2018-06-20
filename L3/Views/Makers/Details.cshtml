@@ -1,0 +1,29 @@
+﻿@model L3.Models.Maker
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Maker</h4>
+    <table class="table table-striped">
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Name)</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.About)</td>
+            <td>@Html.DisplayFor(model => model.About)</td>
+        </tr>
+    </table>
+</div>
+<p>
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit", "Edit", new {id = Model.Id})<h6>|</h6>
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

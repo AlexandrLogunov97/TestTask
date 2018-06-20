@@ -1,0 +1,44 @@
+﻿@model L3.Areas.Admin.Models.CreateModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4>Create user</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div>
+            Логин
+            <div>
+                <input name="Login" type="text" class="form-control" value="@Model.Login"/>
+            </div>
+        </div>
+
+        <div>
+            Пароль
+            <div>
+                <input name="Password" type="text" class="form-control" value="@Model.Password" />
+            </div>
+        </div>
+        <div>
+            Роль
+            <div>
+                <label>Moderator: <input type="radio" name="Role" value="Moderator" required /></label><br />
+                <label>Admin: <input type="radio" name="Role" value="Admin" required /></label> 
+            </div>
+        </div>
+        <div>
+            <div>
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
