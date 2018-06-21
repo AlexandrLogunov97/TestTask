@@ -7,12 +7,12 @@
 }
 
 <h2>Cars</h2>
-@*@if (HttpContext.Current.User.Identity.IsAuthenticated)
-{*@
+@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-@*}*@
+}
 <form method="get">
     <div class="form-inline">
         <label class="control-label">Sort @Html.DropDownList("Sort", ViewBag.SortList as SelectList,htmlAttributes: new { @class = "form-control" })</label>
@@ -71,8 +71,8 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @*@if (HttpContext.Current.User.Identity.IsAuthenticated)
-                {*@
+                @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Actions <span class="caret"></span>
@@ -83,11 +83,11 @@
                         <li>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</li>
                     </ul>
                 </div>
-                @*}
+                }
                 else
                 {
                 @Html.ActionLink("Details", "Details", new {id = item.Id},new { @class="btn btn-default"})
-                }*@
+                }
             </td>
         </tr>
     }

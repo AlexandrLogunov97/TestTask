@@ -37,7 +37,7 @@ namespace L3.Controllers
         }
 
         // GET: Brands/Create
-        //[Auth]
+        [Auth]
         public ActionResult Create()
         {
             return View();
@@ -61,7 +61,7 @@ namespace L3.Controllers
         }
 
         // GET: Brands/Edit/5
-        //[Auth]
+        [Auth]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -93,7 +93,7 @@ namespace L3.Controllers
         }
 
         // GET: Brands/Delete/5
-        //[Auth]
+        [Auth]
         public ActionResult Delete(int? id)
         {
             if (id == null)

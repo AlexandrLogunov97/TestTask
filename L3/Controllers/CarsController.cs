@@ -50,7 +50,7 @@ namespace L3.Controllers
         }
 
         // GET: Cars/Create
-        //[Auth]
+        [Auth]
         public ActionResult Create()
         {
             ViewBag.BrandId = new SelectList(db.Brands, "Id", "Name");
@@ -88,7 +88,7 @@ namespace L3.Controllers
         }
 
         // GET: Cars/Edit/5
-        //[Auth]
+        [Auth]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -135,7 +135,7 @@ namespace L3.Controllers
         }
 
         // GET: Cars/Delete/5
-        //[Auth]
+        [Auth]
         public ActionResult Delete(int? id)
         {
             if (id == null)

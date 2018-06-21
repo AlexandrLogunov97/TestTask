@@ -6,12 +6,12 @@
 }
 
 <h2>Makers</h2>
-@*@if (HttpContext.Current.User.Identity.IsAuthenticated)
-{*@
+@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-@*}*@
+}
 <table class="table">
     <tr>
         <th>
@@ -31,14 +31,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.About)
         </td>
-        @*@if (HttpContext.Current.User.Identity.IsAuthenticated)
-        {*@
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
             <td>
                 @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
                 @Html.ActionLink("Details", "Details", new {id = item.Id}) |
                 @Html.ActionLink("Delete", "Delete", new {id = item.Id})
             </td>
-        @*}*@
+        }
     </tr>
 }
 

@@ -18,7 +18,7 @@ using Microsoft.Owin.Security.DataProtection;
 namespace L3.Areas.Admin.Controllers
 {
 
-    //[AdminAuth]
+    [AdminAuth]
     public class ManageController : Controller
     {
         private L3UserManager UserManager
@@ -39,12 +39,14 @@ namespace L3.Areas.Admin.Controllers
 
         public async Task<ActionResult> Edit(string id)
         {
+
             User user = await UserManager.FindByIdAsync(id);
             
             if (user != null)
             {
                 EditModel editModel=new EditModel(){UserId = user.Id,UserName = user.UserName,Role = UserManager.GetRoles(user.Id).FirstOrDefault()};
-                return View(editModel);
+                if(editModel.Role!="Admin" && UserManager.Users.Count()>1)
+                    return View(editModel);
             }
 
             return RedirectToAction("Users");
@@ -56,6 +58,7 @@ namespace L3.Areas.Admin.Controllers
             User user = await UserManager.FindByIdAsync(model.UserId);
             if (user != null)
             {
+                
                 user.UserName = model.UserName;
                 if (oldRole != model.Role)
                 {
@@ -129,9 +132,12 @@ namespace L3.Areas.Admin.Controllers
             return View(model);
         }
         [HttpGet]
-        public ActionResult Delete()
+        public async Task<ActionResult> Delete(string id)
         {
-            return View();
+            User user = await UserManager.FindByIdAsync(id);
+            if(user!=null)
+                return View(user);
+            return RedirectToAction("Users", "Manage");
         }
 
         [HttpPost]
@@ -141,10 +147,13 @@ namespace L3.Areas.Admin.Controllers
             User user = await UserManager.FindByIdAsync(id);
             if (user != null)
             {
-                IdentityResult result = await UserManager.DeleteAsync(user);
-                if (result.Succeeded)
+                if (UserManager.GetRoles(user.Id).FirstOrDefault() != "Admin" && UserManager.Users.Count() > 1)
                 {
-                    return RedirectToAction("Users", "Manage");
+                    IdentityResult result = await UserManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Users", "Manage");
+                    }
                 }
             }
             return RedirectToAction("Users", "Manage");
